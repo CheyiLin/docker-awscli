@@ -3,7 +3,7 @@ FROM docker:stable-git
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
 ARG AWS_CLI_VERSION
-ENV AWS_CLI_VERSION=${AWS_CLI_VERSION:-1.18.131}
+ENV AWS_CLI_VERSION=${AWS_CLI_VERSION:-1.18.155}
 
 RUN apk --no-cache add bash openssl gettext curl python3 \
     && curl -s https://bootstrap.pypa.io/get-pip.py | python3 - \
