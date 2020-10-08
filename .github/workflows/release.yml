@@ -8,10 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout source
-        uses: actions/checkout@v2
-      - name: create release
-        uses: actions/create-release@v1
+      - uses: actions/checkout@v2
+      - id: tag
+        run: echo ::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}
+      - uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -23,11 +23,11 @@ jobs:
             ### Docker Hub
 
             ```sh
-            docker pull cheyilin/docker-awscli:${{ github.ref }}
+            docker pull cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
             ```
 
             ### Quay
 
             ```sh
-            docker pull quay.io/cheyilin/docker-awscli:${{ github.ref }}
+            docker pull quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
             ```
