@@ -18,16 +18,14 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           body: |
-            ## Images
+            ## Docker Hub
 
-            ### Docker Hub
-
-            ```sh
-            docker pull cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            ```text
+            cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
             ```
 
-            ### Quay
+            ## Quay
 
-            ```sh
-            docker pull quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            ```text
+            quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
             ```

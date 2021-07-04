@@ -1,9 +1,9 @@
-FROM docker:stable-git
+FROM docker:20.10-git
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
 ARG AWS_CLI_VERSION
-ENV AWS_CLI_VERSION=${AWS_CLI_VERSION:-1.18.165}
+ENV AWS_CLI_VERSION=${AWS_CLI_VERSION:-1.19.105}
 
 RUN apk --no-cache add bash openssl gettext curl python3 \
     && curl -s https://bootstrap.pypa.io/get-pip.py | python3 - \
