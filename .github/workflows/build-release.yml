@@ -21,21 +21,31 @@ jobs:
         with:
           username: cheyilin
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to quay.io
+        uses: docker/login-action@v1
+        with:
+          registry: quay.io
+          username: cheyilin+github_actions
+          password: ${{ secrets.QUAY_ROBOT_TOKEN }}
       - name: Build and Push v1
         uses: docker/build-push-action@v2
         with:
           context: v1
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: cheyilin/docker-awscli:v1
           cache-from: type=registry,ref=cheyilin/docker-awscli:v1
           cache-to: type=inline
+          tags: |
+            cheyilin/docker-awscli:v1
+            quay.io/cheyilin/docker-awscli:v1
       - name: Build and Push v2
         uses: docker/build-push-action@v2
         with:
           context: v2
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: cheyilin/docker-awscli:v2
           cache-from: type=registry,ref=cheyilin/docker-awscli:v2
           cache-to: type=inline
+          tags: |
+            cheyilin/docker-awscli:v2
+            quay.io/cheyilin/docker-awscli:v2
