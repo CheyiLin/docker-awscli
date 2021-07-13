@@ -44,12 +44,12 @@ jobs:
           context: ${{ env.BUILD_CTX }}
           platforms: ${{ env.BUILD_PLATFORMS }}
           push: true
-          cache-from: type=registry,ref=cheyilin/docker-awscli:${{ env.BUILD_CTX }}
+          cache-from: type=registry,ref=ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
           cache-to: type=inline
           # disable pushing to quay.io due to Buildx bug: https://github.com/docker/buildx/issues/327
           # add line below back to `tags` to enable it again
           # quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
           tags: |
-            cheyilin/docker-awscli:${{ env.BUILD_CTX }}
-            cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
             ghcr.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
