@@ -1,15 +1,15 @@
 # https://github.com/marketplace/actions/create-a-release
-name: CI for awscli v1
+name: CI for awscli v2
 on:
   push:
     tags:
-      - "1.*"
+      - "2.*"
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     env:
-      BUILD_CTX: v1
+      BUILD_CTX: v2
       BUILD_PLATFORMS: linux/amd64,linux/arm64
     steps:
       - name: Extract tag
