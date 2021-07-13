@@ -28,7 +28,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: cheyilin/docker-awscli:v1
-          cache-from: type=registry,cheyilin/docker-awscli:v1
+          cache-from: type=registry,ref=cheyilin/docker-awscli:v1
           cache-to: type=inline
       - name: Build and Push v2
         uses: docker/build-push-action@v2
@@ -37,5 +37,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: cheyilin/docker-awscli:v2
-          cache-from: type=registry,cheyilin/docker-awscli:v2
+          cache-from: type=registry,ref=cheyilin/docker-awscli:v2
           cache-to: type=inline
