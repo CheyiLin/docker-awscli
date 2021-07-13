@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM} debian:buster-slim
+FROM --platform=${TARGETPLATFORM} ubuntu:20.04
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
@@ -19,7 +19,7 @@ RUN set -eux; \
     update-ca-certificates; \
     \
     curl -SfL -o /tmp/docker-cli.deb \
-        https://download.docker.com/linux/debian/dists/buster/pool/stable/${TARGETARCH}/docker-ce-cli_${DOCKER_VERSION}~3-0~debian-buster_${TARGETARCH}.deb; \
+        https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/${TARGETARCH}/docker-ce-cli_${DOCKER_VERSION}~3-0~ubuntu-focal_${TARGETARCH}.deb; \
     dpkg -i /tmp/docker-cli.deb; \
     rm -f /tmp/docker-cli.deb; \
     \
