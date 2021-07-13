@@ -1,6 +1,6 @@
 # docker-awscli
 
-Docker in Docker image with AWS CLI support
+Docker image with AWS CLI support
 
 Upstream releases [github.com/aws/aws-cli](https://github.com/aws/aws-cli/releases)
 
