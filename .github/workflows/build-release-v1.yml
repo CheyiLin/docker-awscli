@@ -1,15 +1,20 @@
 # https://github.com/marketplace/actions/create-a-release
-name: Build and Release
+name: Build and Release for awscli v1
 on:
   push:
-    branches:
-      - master
-    # tags:
-    #   - "*"
+    tags:
+      - "1.*"
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
+    env:
+      BUILD_CTX: v1
+      BUILD_PLATFORMS: linux/amd64,linux/arm64
     steps:
+      - name: Extract tag
+        id: tag
+        run: echo ::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
@@ -27,25 +32,15 @@ jobs:
           registry: quay.io
           username: cheyilin+github_actions
           password: ${{ secrets.QUAY_ROBOT_TOKEN }}
-      - name: Build and Push v1
+      - name: Build and Push
         uses: docker/build-push-action@v2
         with:
-          context: v1
-          platforms: linux/amd64,linux/arm64
+          context: ${{ env.BUILD_CTX }}
+          platforms: ${{ env.BUILD_PLATFORMS }}
           push: true
-          cache-from: type=registry,ref=cheyilin/docker-awscli:v1
+          cache-from: type=registry,ref=cheyilin/docker-awscli:${{ env.BUILD_CTX }}
           cache-to: type=inline
           tags: |
-            cheyilin/docker-awscli:v1
-            quay.io/cheyilin/docker-awscli:v1
-      - name: Build and Push v2
-        uses: docker/build-push-action@v2
-        with:
-          context: v2
-          platforms: linux/amd64,linux/arm64
-          push: true
-          cache-from: type=registry,ref=cheyilin/docker-awscli:v2
-          cache-to: type=inline
-          tags: |
-            cheyilin/docker-awscli:v2
-            quay.io/cheyilin/docker-awscli:v2
+            cheyilin/docker-awscli:${{ env.BUILD_CTX }}
+            cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
