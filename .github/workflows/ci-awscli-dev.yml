@@ -52,18 +52,3 @@ jobs:
           cache-to: type=inline
           tags: |
             ghcr.io/cheyilin/docker-awscli:${{ matrix.ctx }}
-      - name: Create Release
-        uses: ncipollo/release-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          prerelease: true
-          body: |
-            ## GitHub Container Registry
-
-            *CAUTION: FOR DEV ONLY, DO NOT USE*
-
-            https://ghcr.io/cheyilin/docker-awscli
-
-            ```text
-            ghcr.io/cheyilin/docker-awscli:${{ matrix.ctx }}
-            ```
