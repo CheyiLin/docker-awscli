@@ -1,0 +1,69 @@
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: CI for awscli (dev)
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ctx:
+          - v1
+          - v2
+    env:
+      BUILD_PLATFORMS: linux/amd64,linux/arm64
+    steps:
+      - name: Extract tag
+        id: tag
+        run: echo ::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to quay.io
+        uses: docker/login-action@v1
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_ROBOT_USERNAME }}
+          password: ${{ secrets.QUAY_ROBOT_TOKEN }}
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.ctx }}
+          platforms: ${{ env.BUILD_PLATFORMS }}
+          push: true
+          cache-from: type=registry,ref=ghcr.io/cheyilin/docker-awscli:${{ matrix.ctx }}
+          cache-to: type=inline
+          tags: |
+            ghcr.io/cheyilin/docker-awscli:${{ matrix.ctx }}
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: true
+          body: |
+            ## GitHub Container Registry
+
+            *CAUTION: FOR DEV ONLY, DO NOT USE*
+
+            https://ghcr.io/cheyilin/docker-awscli
+
+            ```text
+            ghcr.io/cheyilin/docker-awscli:${{ matrix.ctx }}
+            ```
