@@ -1,26 +1,33 @@
-FROM debian:buster-slim
+FROM --platform=${TARGETPLATFORM} debian:buster-slim
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
-ARG DOCKER_VERSION
-ENV DOCKER_VERSION=${DOCKER_VERSION:-20.10.7}
+ARG TARGETOS
+ARG TARGETARCH
 
-ARG AWS_CLI_VERSION
-ENV AWS_CLI_VERSION=${AWS_CLI_VERSION:-2.2.17}
+ARG DOCKER_VERSION=20.10.7
+ENV DOCKER_VERSION=${DOCKER_VERSION}
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends --no-install-suggests \
-    ca-certificates curl wget git unzip groff less \
-    && rm -rf /var/lib/apt/lists/* \
-    && update-ca-certificates \
-    && curl -SfL -o /tmp/docker-cli.deb https://download.docker.com/linux/debian/dists/buster/pool/stable/amd64/docker-ce-cli_${DOCKER_VERSION}~3-0~debian-buster_amd64.deb \
-    && dpkg -i /tmp/docker-cli.deb \
-    && curl -SfL -o /tmp/awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip \
-    && unzip -d /tmp /tmp/awscliv2.zip \
-    && /tmp/aws/install \
-    && rm -rf /tmp/* \
-    && docker --version \
-    && aws --version
+ARG AWS_CLI_VERSION=2.2.18
+ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
+
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends --no-install-suggests \
+        ca-certificates curl wget git unzip groff less; \
+    rm -rf /var/lib/apt/lists/*; \
+    update-ca-certificates; \
+    \
+    curl -SfL -o /tmp/docker-cli.deb \
+        https://download.docker.com/linux/debian/dists/buster/pool/stable/${TARGETARCH}/docker-ce-cli_${DOCKER_VERSION}~3-0~debian-buster_${TARGETARCH}.deb; \
+    dpkg -i /tmp/docker-cli.deb; \
+    rm -f /tmp/docker-cli.deb; \
+    \
+    curl -SfL -o /tmp/awscliv2.zip \
+        https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m)-${AWS_CLI_VERSION}.zip; \
+    unzip -d /tmp /tmp/awscliv2.zip; \
+    /tmp/aws/install; \
+    rm -rf /tmp/aws*
 
 # make it acts like official docker images
 # https://github.com/docker-library/docker/blob/master/20.10/Dockerfile
