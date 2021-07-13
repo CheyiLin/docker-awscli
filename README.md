@@ -17,8 +17,8 @@ Upstream releases [github.com/aws/aws-cli](https://github.com/aws/aws-cli/releas
 ### Start a Docker daemon `dockerd`
 
 ```bash
-docker network create dind
-docker run --privileged --rm --name=dockerd --network=dind --network-alias=docker -e DOCKER_TLS_CERTDIR= docker:20.10-dind
+$ docker network create dind
+$ docker run --privileged --rm --name=dockerd --network=dind --network-alias=docker -e DOCKER_TLS_CERTDIR= docker:20.10-dind
 ```
 
 ### Connect to `dockerd` from `docker-awscli`
@@ -26,10 +26,10 @@ docker run --privileged --rm --name=dockerd --network=dind --network-alias=docke
 ```bash
 $ docker run -ti --rm --network=dind ghcr.io/cheyilin/docker-awscli:2.2.18
 
-root@1f59e1ea8b22:/$ aws --version
+user@docker-awscli:/$ aws --version
 aws-cli/2.2.18 Python/3.8.8 Linux/5.10.25-linuxkit exe/aarch64.debian.10 prompt/off
 
-root@1f59e1ea8b22:/$ docker version
+user@docker-awscli:/$ docker version
 Client: Docker Engine - Community
  Version:           20.10.7
  API version:       1.41
@@ -65,7 +65,7 @@ Server: Docker Engine - Community
 [Using Amazon ECR with the AWS CLI](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html)
 
 ```bash
-root@1f59e1ea8b22:/$ aws ecr get-login-password --region <AWS_REGION> | docker login --username AWS --password-stdin <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com
-root@1f59e1ea8b22:/$ docker pull <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/hello-world:latest
-root@1f59e1ea8b22:/$ docker push <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/hello-world:latest
+user@docker-awscli:/$ aws ecr get-login-password --region AWS_REGION | docker login --username AWS --password-stdin AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com
+user@docker-awscli:/$ docker pull AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/hello-world:latest
+user@docker-awscli:/$ docker push AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/hello-world:latest
 ```
