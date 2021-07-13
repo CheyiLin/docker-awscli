@@ -1,4 +1,4 @@
-# https://github.com/marketplace/actions/create-a-release
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 name: CI for awscli v1
 on:
   push:
