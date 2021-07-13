@@ -1,5 +1,5 @@
 # https://github.com/marketplace/actions/create-a-release
-name: Build and Release for awscli v1
+name: CI for awscli v1
 on:
   push:
     tags:
@@ -26,6 +26,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to quay.io
         uses: docker/login-action@v1
         with:
@@ -40,7 +46,10 @@ jobs:
           push: true
           cache-from: type=registry,ref=cheyilin/docker-awscli:${{ env.BUILD_CTX }}
           cache-to: type=inline
+          # disable pushing to quay.io due to Buildx bug: https://github.com/docker/buildx/issues/327
+          # add line below back to `tags` to enable it again
+          # quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
           tags: |
             cheyilin/docker-awscli:${{ env.BUILD_CTX }}
             cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
-            quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            ghcr.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
