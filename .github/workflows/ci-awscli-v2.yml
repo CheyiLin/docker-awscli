@@ -1,5 +1,5 @@
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-name: CI for awscli v2
+name: ci-awscli-v2
 on:
   push:
     tags:

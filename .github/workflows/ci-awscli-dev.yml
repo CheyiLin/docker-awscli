@@ -1,5 +1,5 @@
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-name: CI for awscli (dev)
+name: ci-awscli-dev
 on:
   push:
     branches:
