@@ -2,15 +2,25 @@
 
 Docker image with AWS CLI support
 
-Upstream releases [github.com/aws/aws-cli](https://github.com/aws/aws-cli/releases)
+Upstream releases: [github.com/aws/aws-cli](https://github.com/aws/aws-cli/releases)
+
+![GitHub Release Date](https://img.shields.io/github/release-date/cheyilin/docker-awscli)
+
+## Supported Platforms
+
+- `linux/amd64`
+- `linux/arm64`
 
 ## GitHub Container Registry
 
-[![CI for awscli v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
+[![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
+[![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
 
 ## Docker Hub
 
 [![Docker Build Status](https://img.shields.io/docker/cloud/automated/cheyilin/docker-awscli)](https://hub.docker.com/r/cheyilin/docker-awscli/tags?page=1&ordering=last_updated)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/cheyilin/docker-awscli)](https://hub.docker.com/r/cheyilin/docker-awscli/builds)
+[![Docker Pulls](https://img.shields.io/docker/pulls/cheyilin/docker-awscli)](https://hub.docker.com/r/cheyilin/docker-awscli)
 
 ## Examples
 
