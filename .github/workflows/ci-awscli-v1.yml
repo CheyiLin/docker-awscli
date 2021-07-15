@@ -52,6 +52,7 @@ jobs:
           tags: |
             ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
             ghcr.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            cheyilin/docker-awscli:${{ env.BUILD_CTX }}
             cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
       - name: Create Release
         uses: ncipollo/release-action@v1
