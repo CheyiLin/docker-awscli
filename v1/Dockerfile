@@ -4,7 +4,7 @@ FROM --platform=${TARGETPLATFORM} docker:${DOCKER_VERSION}-git
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
-ARG AWS_CLI_VERSION=1.20.6
+ARG AWS_CLI_VERSION=1.20.8
 ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 
 RUN set -eux; \
