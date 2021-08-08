@@ -56,3 +56,5 @@ jobs:
           cache-to: type=inline
           tags: |
             ghcr.io/cheyilin/docker-awscli:${{ matrix.ctx }}
+            cheyilin/docker-awscli:${{ matrix.ctx }}
+            quay.io/cheyilin/docker-awscli:${{ matrix.ctx }}
