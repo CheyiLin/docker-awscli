@@ -13,8 +13,8 @@ Upstream releases: [github.com/aws/aws-cli](https://github.com/aws/aws-cli/relea
 
 ## Builds
 
-[![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
-[![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
+- [![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
+- [![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
 
 ## Image Registry
 
@@ -28,12 +28,6 @@ ghcr.io/cheyilin/docker-awscli:<version-tag>
 
 ```text
 cheyilin/docker-awscli:<version-tag>
-```
-
-### Quay&#46;io
-
-```text
-quay.io/cheyilin/docker-awscli:<version-tag>
 ```
 
 ## Examples
