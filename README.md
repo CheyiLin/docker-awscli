@@ -4,23 +4,39 @@ Docker in Docker image with AWS CLI v1/v2 support
 
 Upstream releases: [github.com/aws/aws-cli](https://github.com/aws/aws-cli/releases)
 
-![GitHub Release Date](https://img.shields.io/github/release-date/cheyilin/docker-awscli)
+[![GitHub Release Date](https://img.shields.io/github/release-date/cheyilin/docker-awscli)](https://github.com/CheyiLin/docker-awscli/releases)
 
 ## Supported Platforms
 
 - `linux/amd64`
 - `linux/arm64`
 
-## GitHub Container Registry
+## Build
 
-[![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
-[![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
+| Version   | Status |
+|-----------|--------|
+| awscli v1 | [![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli) |
+| awscli v2 | [![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli) |
 
-## Docker Hub
+## Image Registry
 
-[![Docker Build Status](https://img.shields.io/docker/cloud/automated/cheyilin/docker-awscli)](https://hub.docker.com/r/cheyilin/docker-awscli/tags?page=1&ordering=last_updated)
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/cheyilin/docker-awscli)](https://hub.docker.com/r/cheyilin/docker-awscli/builds)
-[![Docker Pulls](https://img.shields.io/docker/pulls/cheyilin/docker-awscli)](https://hub.docker.com/r/cheyilin/docker-awscli)
+### GitHub Container Registry
+
+```text
+ghcr.io/cheyilin/docker-awscli:<version-tag>
+```
+
+### Docker Hub [![Docker Pulls](https://img.shields.io/docker/pulls/cheyilin/docker-awscli)](https://hub.docker.com/r/cheyilin/docker-awscli)
+
+```text
+cheyilin/docker-awscli:<version-tag>
+```
+
+### Quay&#46;io
+
+```text
+quay.io/cheyilin/docker-awscli:<version-tag>
+```
 
 ## Examples
 
@@ -70,7 +86,7 @@ Server: Docker Engine - Community
   GitCommit:        de40ad0
 ```
 
-### Login to AWS ECR and pull/push images within `docker-awscli`
+### Login and pull/push AWS ECR image within `docker-awscli`
 
 [Using Amazon ECR with the AWS CLI](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html)
 
