@@ -11,12 +11,10 @@ Upstream releases: [github.com/aws/aws-cli](https://github.com/aws/aws-cli/relea
 - `linux/amd64`
 - `linux/arm64`
 
-## Build
+## Builds
 
-| Version   | Status |
-|-----------|--------|
-| awscli v1 | [![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli) |
-| awscli v2 | [![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli) |
+[![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
+[![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
 
 ## Image Registry
 
