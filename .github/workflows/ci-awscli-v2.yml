@@ -46,13 +46,14 @@ jobs:
           push: true
           cache-from: type=registry,ref=ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
           cache-to: type=inline
+          # disable pushing to quay.io due to Buildx bug: https://github.com/docker/buildx/issues/327
+          # add line below back to `tags` to enable it again
+          # quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
           tags: |
             ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
             ghcr.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
             cheyilin/docker-awscli:${{ env.BUILD_CTX }}
             cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
-            quay.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
-            quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
@@ -72,12 +73,4 @@ jobs:
 
             ```text
             cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
-            ```
-
-            ## Quay&#46;io
-
-            https://quay.io/repository/cheyilin/docker-awscli
-
-            ```text
-            quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
             ```
