@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM} ubuntu:20.04
+FROM ubuntu:20.04
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 

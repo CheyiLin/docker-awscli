@@ -1,6 +1,6 @@
 ARG DOCKER_VERSION=20.10.8
 
-FROM --platform=${TARGETPLATFORM} docker:${DOCKER_VERSION}-git
+FROM docker:${DOCKER_VERSION}-git
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
