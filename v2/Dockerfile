@@ -11,8 +11,8 @@ ENV DOCKER_VERSION=${DOCKER_VERSION}
 ARG AWS_CLI_VERSION=2.2.28
 ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 
-RUN set -eux; \
-    apt-get update; \
+SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
+RUN apt-get update; \
     apt-get install -y --no-install-recommends --no-install-suggests \
         ca-certificates curl wget git unzip groff less; \
     rm -rf /var/lib/apt/lists/*; \
