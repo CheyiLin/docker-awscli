@@ -19,12 +19,12 @@ RUN apt-get update; \
     update-ca-certificates; \
     \
     curl -SfL -o /tmp/docker-cli.deb \
-        https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/${TARGETARCH}/docker-ce-cli_${DOCKER_VERSION}~3-0~ubuntu-focal_${TARGETARCH}.deb; \
+        "https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/${TARGETARCH}/docker-ce-cli_${DOCKER_VERSION}~3-0~ubuntu-focal_${TARGETARCH}.deb"; \
     dpkg -i /tmp/docker-cli.deb; \
     rm -f /tmp/docker-cli.deb; \
     \
     curl -SfL -o /tmp/awscliv2.zip \
-        https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m)-${AWS_CLI_VERSION}.zip; \
+        "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m)-${AWS_CLI_VERSION}.zip"; \
     unzip -d /tmp /tmp/awscliv2.zip; \
     /tmp/aws/install; \
     rm -rf /tmp/aws*
