@@ -4,7 +4,7 @@ FROM docker:${DOCKER_VERSION}-git
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
-ARG AWS_CLI_VERSION=1.20.18
+ARG AWS_CLI_VERSION=1.20.20
 ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 
 SHELL ["/bin/ash", "-euxo", "pipefail", "-c"]
