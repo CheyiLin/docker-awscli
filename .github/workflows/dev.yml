@@ -63,3 +63,17 @@ jobs:
       - name: Inspect Image
         run: |
           docker buildx imagetools inspect ${{ steps.meta.outputs.tags }}
+      - name: Test Preflight
+        run: |
+          docker network create dind
+          docker run --privileged --rm --name=dockerd --network=dind --network-alias=docker -e DOCKER_TLS_CERTDIR= docker:20.10-dind
+      - name: Test (linux/amd64)
+        run: |
+          docker run --platform=linux/amd64 ${{ steps.meta.outputs.tags }} aws --version
+          docker run --platform=linux/amd64 ${{ steps.meta.outputs.tags }} docker version
+          docker run --platform=linux/amd64 ${{ steps.meta.outputs.tags }} docker info
+      - name: Test (linux/arm64)
+        run: |
+          docker run --platform=linux/arm64 ${{ steps.meta.outputs.tags }} aws --version
+          docker run --platform=linux/arm64 ${{ steps.meta.outputs.tags }} docker version
+          docker run --platform=linux/arm64 ${{ steps.meta.outputs.tags }} docker info
