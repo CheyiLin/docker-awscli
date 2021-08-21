@@ -13,8 +13,8 @@ Upstream releases: [github.com/aws/aws-cli](https://github.com/aws/aws-cli/relea
 
 ## Builds
 
-- [![ci-awscli-v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v2.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
-- [![ci-awscli-v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/ci-awscli-v1.yml/badge.svg)](https://ghcr.io/cheyilin/docker-awscli)
+- [![v2](https://github.com/CheyiLin/docker-awscli/actions/workflows/v2.yml/badge.svg)](https://github.com/CheyiLin/docker-awscli/actions/workflows/v2.yml)
+- [![v1](https://github.com/CheyiLin/docker-awscli/actions/workflows/v1.yml/badge.svg)](https://github.com/CheyiLin/docker-awscli/actions/workflows/v1.yml)
 
 ## Image Registry
 
