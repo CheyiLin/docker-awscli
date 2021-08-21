@@ -55,6 +55,8 @@ jobs:
           build-args: |
             AWS_CLI_VERSION=${{ matrix.version }}
           push: true
+          cache-from: type=gha,scope=${{ matrix.ctx }}
+          cache-to: type=gha,scope=${{ matrix.ctx }},mode=max
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
             ${{ steps.meta.outputs.tags }}
