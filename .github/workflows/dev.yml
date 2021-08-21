@@ -16,40 +16,34 @@ jobs:
       matrix:
         include:
           - ctx: v1
-            awscli-version: "1.20.26"
+            version: "1.20.26"
           - ctx: v2
-            awscli-version: "2.2.31"
+            version: "2.2.31"
     env:
       BUILD_PLATFORMS: linux/amd64,linux/arm64
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Docker metadata
+      - name: Docker Metadata
         id: meta
         uses: docker/metadata-action@v3
         # https://github.com/docker/metadata-action
         with:
           images: |
-            ghcr.io/cheyilin/docker-awscli
+            localhost:5000/cheyilin/docker-awscli
           tags: |
             type=raw,value=${{ matrix.ctx }}
-      - name: Set up QEMU
+      - name: Setup QEMU
         uses: docker/setup-qemu-action@v1
         with:
           platforms: ${{ env.BUILD_PLATFORMS }}
-      - name: Set up Docker Buildx
+      - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Login to GHCR
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and Push
         uses: docker/build-push-action@v2
         # https://github.com/docker/build-push-action
@@ -57,10 +51,13 @@ jobs:
           context: ${{ matrix.ctx }}
           platforms: ${{ env.BUILD_PLATFORMS }}
           build-args: |
-            AWS_CLI_VERSION=${{ matrix.awscli-version }}
+            AWS_CLI_VERSION=${{ matrix.version }}
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
             ${{ steps.meta.outputs.tags }}
+      - name: Inspect Image
+        run: |
+          docker buildx imagetools inspect ${{ steps.meta.outputs.tags }}
