@@ -27,6 +27,8 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
             type=raw,value=${{ env.BUILD_CTX }}
+          flavor: |
+            latest=false
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -46,14 +48,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and Push
         uses: docker/build-push-action@v2
+        # https://github.com/docker/build-push-action
         with:
           context: ${{ env.BUILD_CTX }}
           platforms: ${{ env.BUILD_PLATFORMS }}
           build-args: |
             AWS_CLI_VERSION=${{ env.BUILD_TAG }}
           push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
+          cache-to: type=inline
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
             ${{ steps.meta.outputs.tags }}

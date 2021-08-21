@@ -1,5 +1,5 @@
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-name: ci-awscli-v2
+name: v2
 on:
   push:
     tags:
@@ -12,48 +12,54 @@ jobs:
       BUILD_CTX: v2
       BUILD_PLATFORMS: linux/amd64,linux/arm64
     steps:
-      - name: Extract tag
-        id: tag
-        run: echo ::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}
+      - name: Setup Envs
+        run: echo BUILD_TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
+      - name: Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        # https://github.com/docker/metadata-action
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          images: |
+            ghcr.io/cheyilin/docker-awscli
+            cheyilin/docker-awscli
+          tags: |
+            type=semver,pattern={{version}}
+            type=raw,value=${{ env.BUILD_CTX }}
+          flavor: |
+            latest=true
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: ${{ env.BUILD_PLATFORMS }}
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Login to GHCR
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Login to quay.io
+      - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: quay.io
-          username: ${{ secrets.QUAY_ROBOT_USERNAME }}
-          password: ${{ secrets.QUAY_ROBOT_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and Push
         uses: docker/build-push-action@v2
+        # https://github.com/docker/build-push-action
         with:
           context: ${{ env.BUILD_CTX }}
           platforms: ${{ env.BUILD_PLATFORMS }}
+          build-args: |
+            AWS_CLI_VERSION=${{ env.BUILD_TAG }}
           push: true
           cache-from: type=registry,ref=ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
           cache-to: type=inline
-          # disable pushing to quay.io due to Buildx bug: https://github.com/docker/buildx/issues/327
-          # add line below back to `tags` to enable it again
-          # quay.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+          labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
-            ghcr.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
-            cheyilin/docker-awscli:${{ env.BUILD_CTX }}
-            cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            ${{ steps.meta.outputs.tags }}
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
@@ -64,7 +70,7 @@ jobs:
             https://ghcr.io/cheyilin/docker-awscli
 
             ```text
-            ghcr.io/cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_TAG }}
             ```
 
             ## Docker Hub
@@ -72,5 +78,5 @@ jobs:
             https://hub.docker.com/r/cheyilin/docker-awscli
 
             ```text
-            cheyilin/docker-awscli:${{ steps.tag.outputs.TAG_NAME }}
+            cheyilin/docker-awscli:${{ env.BUILD_TAG }}
             ```
