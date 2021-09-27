@@ -16,9 +16,9 @@ jobs:
       matrix:
         include:
           - ctx: v1
-            version: "1.20.45"
+            version: "1.20.48"
           - ctx: v2
-            version: "2.2.40"
+            version: "2.2.41"
     env:
       BUILD_PLATFORMS: linux/amd64,linux/arm64
     services:
