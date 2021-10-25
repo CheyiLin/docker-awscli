@@ -25,8 +25,8 @@ jobs:
             ghcr.io/cheyilin/docker-awscli
             cheyilin/docker-awscli
           tags: |
-            type=semver,pattern={{version}}
             type=raw,value=${{ env.BUILD_CTX }}
+            type=semver,pattern={{version}}
           flavor: |
             latest=false
       - name: Setup QEMU
