@@ -69,7 +69,7 @@ jobs:
           docker run -d --privileged \
             --network=dind --network-alias=docker --tls=false -e DOCKER_TLS_CERTDIR= docker:20.10-dind
           docker run --network=dind praqma/network-multitool \
-            sh -c 'until curl -sL -I docker:2375/_ping; do echo "* Wait for dockerd to be ready ..."; sleep 3; done'
+            sh -c 'until curl -sf http://docker:2375/_ping; do echo "* Wait for dockerd to be ready ..."; sleep 1; done'
       - name: Test (linux/amd64)
         run: |
           CMD="docker run --platform=linux/amd64 --network=dind ${{ steps.meta.outputs.tags }}"
