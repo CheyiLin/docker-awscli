@@ -81,3 +81,11 @@ jobs:
           CMD="docker run --platform=linux/arm64 --network=dind ${{ steps.meta.outputs.tags }}"
           ${CMD} docker version
           ${CMD} aws --version
+      - name: Comment
+        uses: peter-evans/commit-comment@v1
+        with:
+          body: |
+            Pipeline has passed. :tada:
+
+            - context: `${{ matrix.ctx }}`
+            - version: `${{ matrix.version }}`
