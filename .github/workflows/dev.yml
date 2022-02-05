@@ -21,6 +21,7 @@ jobs:
             version: "2.4.9"
     env:
       BUILD_PLATFORMS: linux/amd64,linux/arm64
+      DOCKER_VERSION: "20.10.12"
     services:
       registry:
         image: registry:2
@@ -53,6 +54,7 @@ jobs:
           context: ${{ matrix.ctx }}
           platforms: ${{ env.BUILD_PLATFORMS }}
           build-args: |
+            DOCKER_VERSION=${{ env.DOCKER_VERSION }}
             AWS_CLI_VERSION=${{ matrix.version }}
           push: true
           cache-from: type=gha,scope=${{ matrix.ctx }}
@@ -67,7 +69,7 @@ jobs:
         run: |
           docker network create dind
           docker run -d --privileged \
-            --network=dind --network-alias=docker -e DOCKER_TLS_CERTDIR= docker:20.10-dind \
+            --network=dind --network-alias=docker -e DOCKER_TLS_CERTDIR= docker:${{ env.DOCKER_VERSION }}-dind \
             --tls=false --registry-mirror=https://mirror.gcr.io
           docker run --network=dind praqma/network-multitool \
             sh -c 'until curl -sf http://docker:2375/_ping; do echo "* Wait for dockerd to be ready ..."; sleep 1; done'
