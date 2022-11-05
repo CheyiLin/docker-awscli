@@ -11,7 +11,7 @@ jobs:
     env:
       BUILD_CTX: v2
       BUILD_PLATFORMS: linux/amd64,linux/arm64
-      DOCKER_VERSION: "20.10.20"
+      DOCKER_VERSION: "20.10.21"
     steps:
       - name: Setup Envs
         run: echo BUILD_TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
