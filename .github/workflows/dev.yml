@@ -16,12 +16,12 @@ jobs:
       matrix:
         include:
           - ctx: v1
-            version: "1.27.7"
+            version: "1.27.60"
           - ctx: v2
-            version: "2.8.11"
+            version: "2.9.19"
     env:
       BUILD_PLATFORMS: linux/amd64,linux/arm64
-      DOCKER_VERSION: "20.10.21"
+      DOCKER_VERSION: "20.10.23"
     services:
       registry:
         image: registry:2
