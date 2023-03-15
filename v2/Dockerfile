@@ -14,7 +14,7 @@ ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 RUN apt-get update; \
     apt-get install -y --no-install-recommends --no-install-suggests \
-        ca-certificates curl wget git unzip groff less; \
+        ca-certificates curl wget git unzip groff less jq; \
     rm -rf /var/lib/apt/lists/*; \
     update-ca-certificates; \
     \
