@@ -8,7 +8,7 @@ ARG AWS_CLI_VERSION=1.20.26
 ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 
 SHELL ["/bin/ash", "-euxo", "pipefail", "-c"]
-RUN apk --no-cache add bash openssl gettext curl python3 jq; \
+RUN apk --no-cache add bash openssl gettext curl python3 jq make; \
     curl -s "https://bootstrap.pypa.io/get-pip.py" | python3 -; \
     pip install --no-cache-dir awscli==${AWS_CLI_VERSION}
 
