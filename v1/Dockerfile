@@ -1,10 +1,10 @@
-ARG DOCKER_VERSION=20.10.10
+ARG DOCKER_VERSION=24.0.5
 
 FROM docker:${DOCKER_VERSION}-git
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
-ARG AWS_CLI_VERSION=1.20.26
+ARG AWS_CLI_VERSION=1.29.10
 ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 
 SHELL ["/bin/ash", "-euxo", "pipefail", "-c"]

@@ -5,10 +5,18 @@ LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 ARG TARGETOS
 ARG TARGETARCH
 
-ARG DOCKER_VERSION=20.10.10
+ARG DOCKER_DL_BASE=https://download.docker.com/linux/ubuntu/dists/focal/pool/stable
+
+ARG DOCKER_VERSION=24.0.5
 ENV DOCKER_VERSION=${DOCKER_VERSION}
 
-ARG AWS_CLI_VERSION=2.2.31
+ARG DOCKER_BUILDX_VERSION=0.11.2
+ENV DOCKER_BUILDX_VERSION=${DOCKER_BUILDX_VERSION}
+
+ARG DOCKER_COMPOSE_VERSION=2.20.2
+ENV DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION}
+
+ARG AWS_CLI_VERSION=2.13.3
 ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 
 SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
@@ -18,10 +26,14 @@ RUN apt-get update; \
     rm -rf /var/lib/apt/lists/*; \
     update-ca-certificates; \
     \
-    curl -SfL -o /tmp/docker-cli.deb \
-        "https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/${TARGETARCH}/docker-ce-cli_${DOCKER_VERSION}~3-0~ubuntu-focal_${TARGETARCH}.deb"; \
-    dpkg -i /tmp/docker-cli.deb; \
-    rm -f /tmp/docker-cli.deb; \
+    curl -SfL -o /tmp/docker-ce-cli.deb \
+        "${DOCKER_DL_BASE}/${TARGETARCH}/docker-ce-cli_${DOCKER_VERSION}-1~ubuntu.20.04~focal_${TARGETARCH}.deb"; \
+    curl -SfL -o /tmp/docker-buildx-plugin.deb \
+        "${DOCKER_DL_BASE}/${TARGETARCH}/docker-buildx-plugin_${DOCKER_BUILDX_VERSION}-1~ubuntu.20.04~focal_${TARGETARCH}.deb"; \
+    curl -SfL -o /tmp/docker-compose-plugin.deb \
+        "${DOCKER_DL_BASE}/${TARGETARCH}/docker-compose-plugin_${DOCKER_COMPOSE_VERSION}-1~ubuntu.20.04~focal_${TARGETARCH}.deb"; \
+    dpkg -i /tmp/docker-ce-cli.deb /tmp/docker-buildx-plugin.deb /tmp/docker-compose-plugin.deb; \
+    rm -f /tmp/docker-*.deb; \
     \
     curl -SfL -o /tmp/awscliv2.zip \
         "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m)-${AWS_CLI_VERSION}.zip"; \

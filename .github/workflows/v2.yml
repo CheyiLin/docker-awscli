@@ -12,6 +12,8 @@ jobs:
       BUILD_CTX: v2
       BUILD_PLATFORMS: linux/amd64,linux/arm64
       DOCKER_VERSION: "24.0.5"
+      DOCKER_BUILDX_VERSION: "0.11.2"
+      DOCKER_COMPOSE_VERSION: "2.20.2"
     steps:
       - name: Setup Envs
         run: echo BUILD_TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
@@ -55,6 +57,8 @@ jobs:
           platforms: ${{ env.BUILD_PLATFORMS }}
           build-args: |
             DOCKER_VERSION=${{ env.DOCKER_VERSION }}
+            DOCKER_BUILDX_VERSION=${{ env.DOCKER_BUILDX_VERSION }}
+            DOCKER_COMPOSE_VERSION=${{ env.DOCKER_COMPOSE_VERSION }}
             AWS_CLI_VERSION=${{ env.BUILD_TAG }}
           push: true
           cache-from: type=registry,ref=ghcr.io/cheyilin/docker-awscli:${{ env.BUILD_CTX }}
