@@ -8,6 +8,11 @@ on:
       - "*"
     paths-ignore:
       - README.md
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
 jobs:
   build:
     name: Build
