@@ -45,7 +45,7 @@ jobs:
           tags: |
             type=raw,value=${{ matrix.ctx }}
       - name: Setup QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: ${{ env.BUILD_PLATFORMS }}
       - name: Setup Docker Buildx
