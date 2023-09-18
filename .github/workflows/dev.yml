@@ -89,7 +89,7 @@ jobs:
           ${CMD} docker version
           ${CMD} aws --version
       - name: Comment
-        uses: peter-evans/commit-comment@v2
+        uses: peter-evans/commit-comment@v3
         with:
           body: |
             Pipeline has passed. :tada:
