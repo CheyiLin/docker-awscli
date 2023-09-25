@@ -89,8 +89,9 @@ jobs:
           ${CMD} docker version
           ${CMD} aws --version
       - name: Comment
-        uses: peter-evans/commit-comment@v2
+        uses: peter-evans/commit-comment@v3
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             Pipeline has passed. :tada:
 
