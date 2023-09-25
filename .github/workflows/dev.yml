@@ -91,6 +91,7 @@ jobs:
       - name: Comment
         uses: peter-evans/commit-comment@v3
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             Pipeline has passed. :tada:
 
