@@ -76,7 +76,7 @@ jobs:
           docker run -d --privileged \
             --network=dind --network-alias=docker -e DOCKER_TLS_CERTDIR= docker:${{ env.DOCKER_VERSION }}-dind \
             --tls=false --registry-mirror=https://mirror.gcr.io
-          docker run --network=dind praqma/network-multitool \
+          docker run --network=dind wbitt/network-multitool \
             sh -c 'until curl -sf http://docker:2375/_ping; do echo "* Wait for dockerd to be ready ..."; sleep 1; done'
       - name: Test (linux/amd64)
         run: |
