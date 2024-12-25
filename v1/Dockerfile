@@ -1,6 +1,8 @@
 ARG DOCKER_VERSION=24.0.7
 
-FROM docker:${DOCKER_VERSION}-git
+# dind variant includes git and the git variant is deprecated.
+# https://github.com/docker-library/docker/pull/483
+FROM docker:${DOCKER_VERSION}-dind
 
 LABEL maintainer="Cheyi Lin <cheyi.lin@gmail.com>"
 
